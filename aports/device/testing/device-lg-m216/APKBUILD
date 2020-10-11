@@ -1,0 +1,29 @@
+# Reference: <https://postmarketos.org/devicepkg>
+pkgname="device-lg-m216"
+pkgdesc="LG K10 (m216)"
+pkgver=1
+pkgrel=0
+url="https://postmarketos.org"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="postmarketos-base mkbootimg linux-postmarketos-qcom-msm8916 soc-qcom-msm8916"
+makedepends="devicepkg-dev"
+source="deviceinfo"
+subpackages="$pkgname-nonfree-firmware:nonfree_firmware"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+}
+
+nonfree_firmware() {
+	pkgdesc="GPU/WiFi/BT/Video(/Modem) firmware"
+	depends="linux-firmware-qcom firmware-qcom-msm8916-wcnss firmware-lg-m216-wcnss-nv"
+	mkdir "$subpkgdir"
+}
+
+sha512sums="8fc40fe6d06d2ada90b2e370f6e7f63b632877bc6c67ca1f058887d5e80e4ebd619188b22ab77bc72fddd9cad5d0aa6219f6b3b9d8c4935607910586b6a631d4  deviceinfo"
